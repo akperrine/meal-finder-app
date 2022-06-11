@@ -1,1 +1,1 @@
-# recipes-finder-app
+# recipie-finder-app
