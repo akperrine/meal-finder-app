@@ -2,7 +2,7 @@
 const meal = document.querySelector(".meal");
 const meals = document.querySelector(".meals");
 const favMealList = document.querySelector(".fav-meals");
-const favMealArr = [];
+const pullUpFavList = document.querySelector(".fav-btn");
 
 const fetchRandomMeal = async function () {
   const res = await fetch(`https://www.themealdb.com/api/json/v1/1/random.php`);
@@ -17,7 +17,6 @@ const fetchById = async function (id) {
     `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`
   );
   const resData = await res.json();
-  console.log(resData);
   const meal = resData.meals[0];
   return meal;
 };
@@ -123,6 +122,21 @@ const displayFavMeals = function (mealObj) {
 
   favMealList.appendChild(favMeal);
 };
+
+const favDisplayMain = async function () {
+  const mealIds = getFavStore();
+
+  for (let i = 0; i < mealIds.length; i++) {
+    const mealId = mealIds[i];
+    const meal = await fetchById(mealId);
+    addMeal(meal);
+  }
+};
+
+pullUpFavList.addEventListener("click", () => {
+  document.querySelector(".meal").innerHTML = ``;
+  favDisplayMain();
+});
 
 fetchRandomMeal();
 fetchFavMeals();

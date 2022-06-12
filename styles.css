@@ -70,6 +70,10 @@ header button {
   text-decoration: underline;
 }
 
+.fav-btn {
+  cursor: pointer;
+}
+
 .fav-meals {
   display: flex;
   flex-direction: column;
@@ -80,13 +84,12 @@ header button {
 }
 
 .fav-meals li {
-  cursor: pointer;
   position: relative;
   margin: 15px;
   width: 150px;
 }
 
-/* .fav-meals li .clear {
+.fav-meals li .clear {
   background-color: transparent;
   border: none;
   cursor: pointer;
@@ -95,15 +98,13 @@ header button {
   top: -0.5rem;
   right: -0.5rem;
   font-size: 1.2rem;
-} */
+}
 
 .fav-meals li img {
   border: 2px solid grey;
   border-radius: 50%;
   box-shadow: 0 0 10px 2px #33331a;
   object-fit: cover;
-  /* height: 110px;
-  width: 110px; */
   height: 8rem;
   width: 8rem;
 }
