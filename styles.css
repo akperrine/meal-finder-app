@@ -70,10 +70,6 @@ header button {
   text-decoration: underline;
 }
 
-.fav-btn {
-  cursor: pointer;
-}
-
 .fav-meals {
   display: flex;
   flex-direction: column;
@@ -84,6 +80,7 @@ header button {
 }
 
 .fav-meals li {
+  cursor: pointer;
   position: relative;
   margin: 15px;
   width: 150px;

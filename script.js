@@ -1,8 +1,9 @@
 "use strict";
-const meal = document.querySelector(".meal");
+const mainMeal = document.querySelector(".meal");
 const meals = document.querySelector(".meals");
 const favMealList = document.querySelector(".fav-meals");
 const pullUpFavList = document.querySelector(".fav-btn");
+const searchBtn = document.querySelector(".search");
 
 const fetchRandomMeal = async function () {
   const res = await fetch(`https://www.themealdb.com/api/json/v1/1/random.php`);
@@ -81,13 +82,11 @@ const storeFavMeal = function (favMeal) {
 
 const unstoreFavMeal = function (favMeal) {
   const mealIds = getFavStore();
-  console.log(favMeal);
 
   localStorage.setItem(
     "favIds",
     JSON.stringify(mealIds.filter((id) => id !== favMeal))
   );
-  console.log(mealIds);
 };
 
 const getFavStore = function () {
@@ -110,6 +109,50 @@ const fetchFavMeals = async function () {
   }
 };
 
+const favToMainDisp = function (favObj) {
+  meals.innerHTML = ``;
+  const meal = document.createElement("div");
+  meal.classList.add("meal");
+  meal.innerHTML = ``;
+  meal.innerHTML = `
+  <div class="meal-img">
+  <img
+    src="${favObj.strMealThumb}"
+    alt="${favObj.strMeal}"
+  />
+</div>
+<div class="meal-name">
+  <h4>${favObj.strMeal}</h4>
+  <button class="fav-btn">
+    <i class="fa-solid fa-heart"></i>
+  </button>
+</div>
+</div>
+  `;
+  meals.appendChild(meal);
+
+  const favBtn = meal.querySelector(".fav-btn");
+  favBtn.classList.add("active");
+  const icon = meal.querySelector(".fa-heart");
+  console.log(favBtn.classList);
+  favBtn.addEventListener("click", function () {
+    if (favBtn.classList.contains("active")) {
+      icon.classList.add("fa-regular");
+      icon.classList.remove("fa-solid");
+      favBtn.classList.remove("active");
+
+      unstoreFavMeal(favObj.idMeal);
+    } else {
+      icon.classList.add("fa-solid");
+      icon.classList.remove("fa-regular");
+      favBtn.classList.add("active");
+
+      storeFavMeal(favObj.idMeal);
+    }
+    fetchFavMeals();
+  });
+};
+
 const displayFavMeals = function (mealObj) {
   const favMeal = document.createElement("li");
 
@@ -119,24 +162,12 @@ const displayFavMeals = function (mealObj) {
   />
   <span>${mealObj.strMeal}</span>
   `;
+  favMeal.addEventListener("click", () => {
+    favToMainDisp(mealObj);
+  });
 
   favMealList.appendChild(favMeal);
 };
-
-const favDisplayMain = async function () {
-  const mealIds = getFavStore();
-
-  for (let i = 0; i < mealIds.length; i++) {
-    const mealId = mealIds[i];
-    const meal = await fetchById(mealId);
-    addMeal(meal);
-  }
-};
-
-pullUpFavList.addEventListener("click", () => {
-  document.querySelector(".meal").innerHTML = ``;
-  favDisplayMain();
-});
 
 fetchRandomMeal();
 fetchFavMeals();
