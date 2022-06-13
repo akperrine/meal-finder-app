@@ -5,6 +5,8 @@ const favMealList = document.querySelector(".fav-meals");
 const pullUpFavList = document.querySelector(".fav-btn");
 const searchBtn = document.querySelector(".search");
 
+const randomBtn = document.querySelector(".random-btn");
+
 const fetchRandomMeal = async function () {
   const res = await fetch(`https://www.themealdb.com/api/json/v1/1/random.php`);
   const resData = await res.json();
@@ -168,6 +170,13 @@ const displayFavMeals = function (mealObj) {
 
   favMealList.appendChild(favMeal);
 };
+
+//------ Temp Functionality
+randomBtn.addEventListener("click", function () {
+  meals.innerHTML = ``;
+  fetchRandomMeal();
+});
+//-------
 
 fetchRandomMeal();
 fetchFavMeals();

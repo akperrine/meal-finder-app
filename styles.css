@@ -44,7 +44,11 @@ header {
   border-bottom: 3px solid #33331a;
 }
 
-header input {
+.random-btn {
+  border: 3px solid black;
+}
+
+/* header input {
   background-color: rgb(229, 228, 228);
   border-radius: 3px;
   padding: 0.5rem 1rem;
@@ -57,7 +61,7 @@ header button {
   color: var(--background);
   font-size: 1.5rem;
   margin-left: 10px;
-}
+} */
 
 .fav-container {
   grid-column: 1/4;
